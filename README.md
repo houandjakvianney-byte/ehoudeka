@@ -1,58 +1,408 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+# EhouDeka 🚗
 
-## About Laravel
+### Plateforme de covoiturage local
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+EhouDeka est une application web de covoiturage local développée avec Laravel dans le cadre d'un travail pratique. Elle permet aux conducteurs de proposer leurs trajets et aux passagers de consulter les trajets disponibles afin de faciliter les déplacements quotidiens.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+L'application vise à encourager la solidarité locale, à réduire les coûts de transport et à optimiser les déplacements, notamment dans les villes comme Lomé.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+---
 
-## Learning Laravel
+## 📌 Sommaire
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+- [Présentation du projet](#-présentation-du-projet)
+- [Objectifs pédagogiques](#-objectifs-pédagogiques)
+- [Fonctionnalités](#-fonctionnalités)
+- [Règles de gestion](#-règles-de-gestion)
+- [Sécurité](#-sécurité)
+- [Technologies utilisées](#-technologies-utilisées)
+- [Installation](#-installation)
+- [Structure du projet](#-structure-du-projet)
+- [Fonctionnalités complémentaires](#-fonctionnalités-complémentaires)
+- [Contexte académique](#-contexte-académique)
 
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+---
 
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
+## 📖 Présentation du projet
 
-## Agentic Development
+Dans les grandes villes, de nombreuses personnes effectuent quotidiennement les mêmes trajets : domicile-travail, domicile-école, marché, etc.
 
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
+Le covoiturage constitue une solution intéressante pour partager les frais de déplacement, limiter les dépenses liées au transport et favoriser l'entraide entre les habitants.
+
+**EhouDeka** répond à ce besoin en proposant une plateforme web sur laquelle :
+
+- Les conducteurs peuvent enregistrer leur véhicule.
+- Les conducteurs peuvent publier leurs trajets.
+- Les visiteurs peuvent consulter les trajets disponibles.
+- Les passagers peuvent accéder aux informations du conducteur et de son véhicule.
+- Les utilisateurs peuvent gérer leurs propres trajets.
+
+L'application est conçue autour d'un système d'authentification et de règles d'accès garantissant une utilisation sécurisée.
+
+---
+
+## 🎯 Objectifs pédagogiques
+
+Ce projet permet de mettre en pratique les principales notions de développement web avec Laravel :
+
+- Mise en place d'un système d'authentification.
+- Gestion de profils utilisateurs personnalisés.
+- Manipulation des relations entre les modèles.
+- Création et validation de formulaires.
+- Gestion de l'envoi et du stockage des images.
+- Protection des routes et des fonctionnalités sensibles.
+- Application des règles d'autorisation.
+- Organisation et structuration d'un projet Laravel.
+
+---
+
+## ✨ Fonctionnalités
+
+### 1. Authentification et gestion des utilisateurs
+
+L'application dispose d'un système d'authentification permettant aux utilisateurs de :
+
+- Créer un compte.
+- Se connecter à leur espace personnel.
+- Se déconnecter de manière sécurisée.
+- Consulter leurs informations personnelles.
+- Modifier leur prénom, leur nom et leur numéro de téléphone.
+
+Informations demandées lors de l'inscription :
+
+| Champ | Description |
+|---|---|
+| Prénom | Prénom de l'utilisateur |
+| Nom | Nom de famille |
+| Téléphone | Numéro de contact |
+| Email | Adresse électronique |
+| Mot de passe | Mot de passe du compte |
+
+### 2. Gestion des véhicules
+
+Chaque utilisateur peut enregistrer un seul véhicule.
+
+Les informations du véhicule comprennent :
+
+- Une photo du véhicule.
+- Le numéro de plaque d'immatriculation.
+- Une description précisant le modèle, la couleur et les particularités du véhicule.
+
+**Règles appliquées :**
+
+- Un utilisateur ne peut posséder qu'un seul véhicule enregistré dans l'application.
+- L'enregistrement d'un véhicule est obligatoire avant la publication d'un trajet.
+- La photo est stockée dans le système de fichiers de Laravel.
+- Une image par défaut est affichée lorsqu'aucune photo personnalisée n'est disponible.
+
+### 3. Consultation des trajets
+
+La consultation des trajets est accessible publiquement, même sans connexion.
+
+Chaque trajet présente les informations suivantes :
+
+| Information | Description |
+|---|---|
+| Ville de départ | Ville depuis laquelle le conducteur part |
+| Lieu de départ | Précision sur le point de départ |
+| Ville d'arrivée | Destination du trajet |
+| Lieu d'arrivée | Précision sur le point d'arrivée |
+| Date et heure | Date et heure du départ |
+| Places disponibles | Nombre de places proposées |
+| Conducteur | Prénom et nom du conducteur |
+| Téléphone | Numéro de contact du conducteur |
+| Véhicule | Photo, plaque et description du véhicule |
+
+Une page dédiée permet également de consulter les détails d'un trajet.
+
+### 4. Publication des trajets
+
+Un utilisateur connecté peut proposer un nouveau trajet.
+
+Les informations à renseigner sont :
+
+- Ville de départ.
+- Lieu précis de départ.
+- Ville d'arrivée.
+- Lieu précis d'arrivée.
+- Date et heure de départ.
+- Nombre de places disponibles.
+
+**Conditions de publication :**
+
+- L'utilisateur doit être authentifié.
+- Il doit avoir enregistré un véhicule.
+- Les données du formulaire doivent respecter les règles de validation.
+- La date du départ doit être ultérieure à la date actuelle.
+
+### 5. Gestion des trajets personnels
+
+Chaque utilisateur dispose d'un espace lui permettant de :
+
+- Consulter ses propres trajets.
+- Visualiser les informations de chaque trajet.
+- Supprimer les trajets qu'il a publiés.
+
+Un utilisateur ne peut pas supprimer le trajet d'un autre conducteur.
+
+---
+
+## ⚙️ Règles de gestion
+
+L'application repose sur plusieurs règles métier :
+
+| Fonctionnalité | Règle |
+|---|---|
+| Inscription | Les informations obligatoires doivent être renseignées. |
+| Authentification | Certaines fonctionnalités nécessitent une connexion. |
+| Véhicule | Un seul véhicule par utilisateur. |
+| Publication | Un véhicule doit être enregistré avant de proposer un trajet. |
+| Date | La date du départ doit être dans le futur. |
+| Places | Le nombre de places doit être compris entre 1 et 8. |
+| Suppression | Seul le propriétaire du trajet peut le supprimer. |
+| Consultation | Les trajets peuvent être consultés sans authentification. |
+
+---
+
+## 🔐 Sécurité
+
+La sécurité constitue un élément important de la conception d'EhouDeka.
+
+Les mécanismes suivants sont utilisés :
+
+- **Authentification :** protection des espaces réservés aux utilisateurs connectés.
+- **Autorisation :** contrôle de la propriété des trajets avant leur suppression.
+- **Validation :** vérification des données envoyées par les formulaires.
+- **Protection CSRF :** protection des formulaires contre les soumissions intersites.
+- **Gestion des images :** validation des fichiers envoyés et stockage via le système de fichiers Laravel.
+- **Protection des routes :** utilisation des middlewares pour limiter l'accès aux fonctionnalités sensibles.
+- **Gestion des erreurs :** pages personnalisées pour les erreurs HTTP courantes.
+
+Les opérations sensibles ne doivent pas être accessibles aux utilisateurs non autorisés.
+
+---
+
+## 🛠️ Technologies utilisées
+
+| Technologie | Utilisation |
+|---|---|
+| PHP | Langage de programmation côté serveur |
+| Laravel | Framework PHP |
+| MySQL| Système de gestion de base de données |
+| Blade | Moteur de templates Laravel |
+| HTML5 | Structure des pages |
+| Tailwind CSS | Mise en forme et design |
+| JavaScript | Interactions côté client |
+| Laravel Breeze | Authentification |
+| Git | Gestion des versions |
+
+---
+
+## 🚀 Installation
+
+### Prérequis
+
+Avant de commencer, assurez-vous de disposer des éléments suivants :
+
+- PHP et ses extensions nécessaires à Laravel.
+- Composer.
+- Node.js et npm.
+- MySQL ou MariaDB.
+- Un environnement de développement local compatible avec Laravel.
+
+### 1. Cloner le projet
 
 ```bash
-composer require laravel/boost --dev
-
-php artisan boost:install
+git clone URL_DU_DEPOT
 ```
 
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
+Accéder au dossier :
 
-## Contributing
+```bash
+cd EhouDeka
+```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+### 2. Installer les dépendances PHP
 
-## Code of Conduct
+```bash
+composer install
+```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+### 3. Installer les dépendances JavaScript
 
-## Security Vulnerabilities
+```bash
+npm install
+```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+### 4. Configurer l'environnement
 
-## License
+Créer le fichier `.env` à partir du fichier d'exemple :
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+```bash
+cp .env.example .env
+```
+
+Sous Windows, il est également possible de copier manuellement `.env.example` et de renommer la copie en `.env`.
+
+Générer la clé de l'application :
+
+```bash
+php artisan key:generate
+```
+
+### 5. Configurer la base de données
+
+Créer une base de données MySQL ou MariaDB, puis renseigner les informations correspondantes dans le fichier `.env` :
+
+```env
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=ehoudeka
+DB_USERNAME=root
+DB_PASSWORD=
+```
+
+Adapter les identifiants selon votre environnement.
+
+### 6. Exécuter les migrations
+
+```bash
+php artisan migrate
+```
+
+Cette commande permet de créer les tables nécessaires au fonctionnement de l'application.
+
+### 7. Configurer le stockage des images
+
+Créer le lien symbolique permettant d'accéder aux fichiers stockés :
+
+```bash
+php artisan storage:link
+```
+
+### 8. Compiler les ressources front-end
+
+En mode développement :
+
+```bash
+npm run dev
+```
+
+Pour compiler les fichiers destinés à la production :
+
+```bash
+npm run build
+```
+
+### 9. Lancer l'application
+
+Dans un terminal :
+
+```bash
+php artisan serve
+```
+
+L'application sera accessible à l'adresse :
+
+```text
+http://127.0.0.1:8000
+```
+
+---
+
+## 📁 Structure du projet
+
+Les principaux dossiers et fichiers utilisés dans l'application sont organisés selon la structure Laravel :
+
+```text
+EhouDeka/
+│
+├── app/
+│   ├── Http/
+│   │   ├── Controllers/
+│   │   ├── Requests/
+│   │   └── Middleware/
+│   │
+│   ├── Models/
+│   │   ├── User.php
+│   │   ├── Vehicle.php
+│   │   └── Trip.php
+│   │
+│   └── Policies/
+│
+├── database/
+│   ├── migrations/
+│   ├── factories/
+│   └── seeders/
+│
+├── public/
+│   └── images/
+│
+├── resources/
+│   ├── css/
+│   ├── js/
+│   └── views/
+│       ├── layouts/
+│       ├── auth/
+│       ├── profile/
+│       ├── vehicles/
+│       ├── trips/
+│       └── errors/
+│
+├── routes/
+│   ├── web.php
+│   └── auth.php
+│
+├── storage/
+│   └── app/
+│       └── public/
+│           └── vehicles/
+│
+├── .env.example
+├── artisan
+├── composer.json
+├── package.json
+└── README.md
+```
+
+*Cette représentation indique les principaux emplacements du projet ; certains fichiers ou dossiers peuvent varier selon l'organisation réelle du code.*
+
+---
+
+## 🌟 Fonctionnalités complémentaires
+
+En complément des fonctionnalités obligatoires du TP, EhouDeka intègre notamment :
+
+- Pagination de la liste des trajets.
+- Filtrage par ville de départ.
+- Filtrage par ville d'arrivée.
+- Filtrage par date de départ.
+- Affichage d'une image par défaut pour les véhicules.
+- Consultation détaillée d'un trajet.
+- Interface adaptée aux appareils mobiles.
+- Pages d'erreurs personnalisées.
+
+---
+
+## 🎓 Contexte académique
+
+**Projet :** Application web de covoiturage local  
+**Nom de l'application :** EhouDeka  
+**Cadre :** Travail pratique de développement web avec Laravel  
+**Objectif :** Concevoir une application de covoiturage fonctionnelle, structurée et sécurisée.
+
+Ce projet constitue une mise en pratique des concepts fondamentaux de Laravel, notamment l'authentification, les relations entre modèles, la validation des données, la gestion des fichiers et la sécurisation des accès.
+
+---
+
+## 👨‍💻 Auteur
+
+**Développement :** Projet réalisé dans le cadre d'un travail pratique en développement web.
+
+---
+
+## 📄 Licence
+
+Projet réalisé à des fins pédagogiques.
